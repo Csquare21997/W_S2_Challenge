@@ -6,23 +6,107 @@
   <script id="challenge">
     // 👉 CHALLENGE 1
     function profileActivation(profile, reason) {
-
+      if (profile.active) {
+        if (reason) {
+      
+            profile.active = false;
+            profile.reason = reason;
+            return profile;
+        } else {
+          
+            return "confirm status manually";
+        }
+    } else {
+        
+        profile.active = true;
+        delete profile.reason;
+        return profile;
     }
+}
+
+
+
+
+
 
     // 👉 CHALLENGE 2
     function mineSweeper(grid, x, y) {
+      if (x<1 || x>3|| y<1 || y>3){
+        return "invalid coordinates"
+      }
+      const square = grid[y - 1][x - 1];
+
+      let message = '';
+    if (square === '🟥') {
+        message = '🟥 💀';
+    } else if (square === '🟦') {
+        message = '🟦 🥳';
+    } 
+        
+  
+    
+    return message
 
     }
 
     // 👉 CHALLENGE 3
     function booleanize(obj) {
+      for (let idx in obj) {
+        if (idx.length > 9) {
+            return "shorten all prop names to 9 chars or less";
+        }
+    }
 
+    
+    for (let idx in obj) {
+        let value = obj[idx];
+        
+        
+        if (value === 0) {
+            obj[idx] = false;
+        } else if (value === 1) {
+            obj[idx] = true;
+        }
+        
+        
+        if (value === null) {
+            delete obj[idx];
+        }
+    }
+    
+    return obj;
     }
 
     // 👉 CHALLENGE 4
     function scrub(text, forbidden) {
-
+      
+    if (text.length === 0 || forbidden.length === 0) {
+        return text;
     }
+
+    let textArr = text.split(/\s+/);
+
+let result = [];
+
+for (let i = 0; i < textArr.length; i++) {
+    let word = textArr[i].toLowerCase().replace(/[^\w]/g, ''); 
+
+    
+    if (forbidden.includes(word)) {
+        
+        result.push('x'.repeat(word.length));
+    } else {
+        
+        result.push(textArr[i]);
+    }
+}
+
+
+let modifiedText = result.join(' ');
+
+return modifiedText;
+}
+    
 
     // 👉 CHALLENGE 5 (bonus, NOT graded)
     function normalizePhoneNumber(num) {
